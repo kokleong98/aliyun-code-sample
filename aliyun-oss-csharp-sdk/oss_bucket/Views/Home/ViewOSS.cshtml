@@ -1,0 +1,44 @@
+﻿@model IEnumerable<oss_bucket.Models.BucketObjectModel>
+@using Microsoft.Extensions.Options
+
+@{
+    ViewData["Title"] = "ViewOSS";
+}
+
+    <div class="container-sm text-center">
+        <h1><i class="fa fa-folder-open" style="color:orange"></i> @Url.ActionContext.RouteData.Values["id"]</h1>
+    </div>
+    <div class="container-sm">
+        <table class="table table-sm table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th>File/Object Name</th>
+                    <th>Size</th>
+                    <th>Modified Time</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData.Model)
+                {
+                    <tr>
+                        <td>
+                            @item.name
+                        </td>
+                        <td>
+                            @item.size
+                        </td>
+                        <td>
+                            @item.modifiedTime
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink(" Download", "Download",  new { id = item.name, bucket = Url.ActionContext.RouteData.Values["id"] }, new { Class = "btn btn-success fa fa-cloud-download" })
+
+                            @Html.ActionLink(" Delete", "Delete", new { id = item.name, bucket = Url.ActionContext.RouteData.Values["id"]  }, new { Class = "btn btn-danger fa fa-trash" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink(" Upload", "Upload", new { id = Url.ActionContext.RouteData.Values["id"] }, new { Class = "btn btn-primary fa fa-cloud-upload" })
+    </div>

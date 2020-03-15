@@ -1,0 +1,34 @@
+﻿@model IEnumerable<oss_bucket.Models.BucketModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="container-sm text-center">
+        <h1>Welcome!</h1>
+        <p> Here is your bucket list</p>
+    </div>
+
+    <div class="container-sm">
+        <table class="table table-sm table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewData.Model)
+                {
+                    <tr>
+                        <td>
+                            @item.name
+                        </td>
+                        <td>
+                            <i class="fa fa-folder-open" style="color:orange"></i> @Html.ActionLink("View", "ViewOSS", new { id = item.name })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
