@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<oss_bucket.Models.BucketObjectModel>
 @using Microsoft.Extensions.Options
+@using oss_bucket.Controllers
 
 @{
     ViewData["Title"] = "ViewOSS";
 }
 
     <div class="container-sm text-center">
-        <h1><i class="fa fa-folder-open" style="color:orange"></i> @Url.ActionContext.RouteData.Values["id"]</h1>
+        <h1><i class="fa fa-folder-open" style="color:orange"></i> @Url.ActionContext.RouteData.Values["id"]/@Url.ActionContext.HttpContext.Request.Query["path"] </h1>
     </div>
     <div class="container-sm">
         <table class="table table-sm table-light">
@@ -19,26 +20,61 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in ViewData.Model)
+                @if (!string.IsNullOrEmpty(Url.ActionContext.HttpContext.Request.Query["path"]))
                 {
                     <tr>
                         <td>
-                            @item.name
+                            <i class="fa fa-level-up fa-flip-horizontal" style="color:orange"></i> @Html.ActionLink("Up..", "ViewOSS", new { id = Url.ActionContext.RouteData.Values["id"], path = HomeController.ParentPath(Url.ActionContext.HttpContext.Request.Query["path"]) })
                         </td>
                         <td>
-                            @item.size
                         </td>
                         <td>
-                            @item.modifiedTime
                         </td>
                         <td class="text-center">
-                            @Html.ActionLink(" Download", "Download",  new { id = item.name, bucket = Url.ActionContext.RouteData.Values["id"] }, new { Class = "btn btn-success fa fa-cloud-download" })
-
-                            @Html.ActionLink(" Delete", "Delete", new { id = item.name, bucket = Url.ActionContext.RouteData.Values["id"]  }, new { Class = "btn btn-danger fa fa-trash" })
                         </td>
+                    </tr>
+                }
+                @foreach (var item in ViewData.Model)
+                {
+                    <tr>
+                        @if (!item.isFolder)
+                        {
+                            <td>
+                                @item.name
+                            </td>
+                            <td>
+                                @item.size
+                            </td>
+                            <td>
+                                @item.modifiedTime
+                            </td>
+                            <td class="text-center">
+                                @Html.ActionLink(" Download", "Download", new { id = item.key, bucket = Url.ActionContext.RouteData.Values["id"] }, new { Class = "btn btn-success fa fa-cloud-download" })
+                                @Html.ActionLink(" Delete", "Delete", new { id = item.key, bucket = Url.ActionContext.RouteData.Values["id"], path = Url.ActionContext.HttpContext.Request.Query["path"] }, new { Class = "btn btn-danger fa fa-trash" })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @item.name
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td class="text-center">
+                                <i class="fa fa-folder-open" style="color:orange"></i> @Html.ActionLink("View", "ViewOSS", new { id = Url.ActionContext.RouteData.Values["id"], path = item.path })
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>
         </table>
-        @Html.ActionLink(" Upload", "Upload", new { id = Url.ActionContext.RouteData.Values["id"] }, new { Class = "btn btn-primary fa fa-cloud-upload" })
+        @Html.ActionLink(" Upload", "Upload", new { id = Url.ActionContext.RouteData.Values["id"], path = Url.ActionContext.HttpContext.Request.Query["path"] }, new { Class = "btn btn-primary fa fa-cloud-upload" })
+        @Html.ActionLink(" New Folder", "NewFolder", new { id = Url.ActionContext.RouteData.Values["id"], path = Url.ActionContext.HttpContext.Request.Query["path"] }, new { Class = "btn btn-primary fa fa-folder-o" })
+
+        @if (ViewData.Model.Count() == 0)
+        {
+        @Html.ActionLink(" Delete", "Delete", new { id = Url.ActionContext.HttpContext.Request.Query["path"], bucket = Url.ActionContext.RouteData.Values["id"], path = Url.ActionContext.HttpContext.Request.Query["path"] }, new { Class = "btn btn-danger fa fa-trash" })
+		}
     </div>

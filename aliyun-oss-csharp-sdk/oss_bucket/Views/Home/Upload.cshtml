@@ -8,9 +8,10 @@
 
 <form method="post" asp-action="Upload" asp-controller="Home" enctype="multipart/form-data">
     <input type="file" name="file" />
+    <input type="hidden" name="path" value="@Url.ActionContext.HttpContext.Request.Query["path"]" />
     <button type="submit">Submit</button>
 </form>
 
 <br />
-@Html.ActionLink("Return", "ViewOSS" , new { id=Url.ActionContext.RouteData.Values["id"] })
+@Html.ActionLink("Return", "ViewOSS" , new { id=Url.ActionContext.RouteData.Values["id"], path = Url.ActionContext.HttpContext.Request.Query["path"] })
 

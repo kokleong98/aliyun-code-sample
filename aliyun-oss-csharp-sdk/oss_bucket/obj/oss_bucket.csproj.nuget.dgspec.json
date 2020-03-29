@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kok leong\\source\\repos\\oss_bucket\\oss_bucket\\oss_bucket.csproj": {}
+    "C:\\Users\\kok leong\\Documents\\GitHub\\aliyun-code-sample\\aliyun-oss-csharp-sdk\\oss_bucket\\oss_bucket.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kok leong\\source\\repos\\oss_bucket\\oss_bucket\\oss_bucket.csproj": {
+    "C:\\Users\\kok leong\\Documents\\GitHub\\aliyun-code-sample\\aliyun-oss-csharp-sdk\\oss_bucket\\oss_bucket.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kok leong\\source\\repos\\oss_bucket\\oss_bucket\\oss_bucket.csproj",
+        "projectUniqueName": "C:\\Users\\kok leong\\Documents\\GitHub\\aliyun-code-sample\\aliyun-oss-csharp-sdk\\oss_bucket\\oss_bucket.csproj",
         "projectName": "oss_bucket",
-        "projectPath": "C:\\Users\\kok leong\\source\\repos\\oss_bucket\\oss_bucket\\oss_bucket.csproj",
+        "projectPath": "C:\\Users\\kok leong\\Documents\\GitHub\\aliyun-code-sample\\aliyun-oss-csharp-sdk\\oss_bucket\\oss_bucket.csproj",
         "packagesPath": "C:\\Users\\kok leong\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kok leong\\source\\repos\\oss_bucket\\oss_bucket\\obj\\",
+        "outputPath": "C:\\Users\\kok leong\\Documents\\GitHub\\aliyun-code-sample\\aliyun-oss-csharp-sdk\\oss_bucket\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
